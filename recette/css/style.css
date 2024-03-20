@@ -1,0 +1,199 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+a {
+    text-decoration: none;
+    color: #000;
+}
+
+header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 1rem 1rem;
+    background-color: #f2f2f2;
+}
+
+.nav_list {
+    display: flex;
+    align-items: center;
+    text-decoration: none;
+    gap: 1rem;
+}
+
+.nav_list a {
+    text-decoration: none;
+    color: #000;
+}
+
+li {
+    list-style: none;
+}
+
+.cards {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 1rem;
+    justify-content: center;
+    padding: 1rem;
+}
+
+.card {
+    padding: 1rem;
+    width: 20rem;
+    height: 37.5rem;
+    background-color: grey;
+    border-radius: 1.5rem;
+    display: flex;
+    flex-direction: column;
+}
+
+.recettes_img {
+
+    width: 15rem ;
+    height: auto;
+    object-fit: cover;
+    border-radius: 1rem;
+}
+
+.description_card {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+    padding: 1rem;
+    width: 100%;
+    align-items:start;
+}
+
+.recettes_card_container {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    align-items:center;
+    padding: 1rem;
+}
+
+.button {
+    padding: 0.5rem 1rem;
+    background-color: #f2f2f2;
+    border: none;
+    border-radius: 1rem;
+    cursor: pointer;
+    width: fit-content;
+}
+
+.info_recette_list {
+    display: flex;
+    gap: 1rem;
+    align-items: center;
+}
+
+.info_recette svg {
+    
+    height: 2rem;
+    width: 2rem;
+    
+}
+
+form {
+    max-width: 37.5rem;
+    margin: 1.25rem auto; 
+    padding: 1.25rem; 
+    border: 0.0625rem solid #ccc; 
+    border-radius: 0.5rem; 
+    background-color: #f9f9f9;
+}
+
+
+label {
+    display: block;
+    margin-bottom: 0.3125rem; 
+    font-weight: bold;
+}
+input[type="text"],
+input[type="number"],
+textarea,
+select {
+    width: 100%;
+    padding: 0.625rem; 
+    margin-bottom: 1.25rem; 
+    border: 0.05rem solid #ccc;
+    border-radius: 0.25rem; 
+}
+
+
+input[type="submit"] {
+    background-color: #4CAF50;
+    color: white;
+    padding: 0.625rem 1.25rem;
+    border: none;
+    border-radius: 0.25rem; 
+    cursor: pointer;
+    width: auto;
+    display: block;
+    margin: 0 auto;
+}
+
+
+input[type="submit"]:hover {
+    background-color: #45a049;
+}
+
+
+.recette {
+    background: #fff;
+    margin: 2rem 0;
+    padding: 2rem;
+    border-radius: 0.5rem;
+    box-shadow: 0 0.125rem 0.25rem rgba(0,0,0,0.1);
+}
+
+.recette h2 {
+    margin-top: 0;
+    color: #333;
+}
+
+.recette img {
+    max-width: 100%;
+    height: auto;
+    border-radius: 0.5rem;
+}
+
+.recette p {
+    margin: 1rem 0;
+}
+
+.info_recette {
+    margin-top: 2rem;
+}
+
+.difficulte, .timing, .personnes {
+    margin: 1rem 0;
+    font-weight: bold;
+}
+
+.ingredients ul, .instructions ol, .ustensils ul {
+    margin: 1rem 0;
+    padding-left: 2rem;
+}
+
+.ingredients li, .ustensils li {
+    margin-bottom: 0.5rem;
+}
+
+.instructions li {
+    margin-bottom: 1rem;
+}
+
+.timing, .personnes {
+    font-style: italic;
+}
+
+.difficulte svg {
+    width: 2rem; 
+    height: auto;
+    vertical-align: middle;
+    margin-right: 0.5rem;
+}

@@ -1,0 +1,105 @@
+@import url(global.css);
+
+main {
+    width: 100vw;
+    height: 100vh;
+    background-color: var(--white);
+    padding: 0 10rem;
+    display: flex;
+}
+
+a {
+
+    text-decoration: none;
+    color: var(--white);
+
+}
+nav img {
+    width: 1.5rem;
+    height: auto;
+}
+ul {
+    list-style: none;
+    display: flex;
+flex-direction: column;
+    align-items: start;
+    padding: 1rem 0;
+}
+
+li a{
+    list-style: none; 
+    font-size: 1rem;
+    font-weight: 700;
+    color: var(--black);
+}
+
+li {
+    margin-bottom: 1.25rem;
+}
+
+.button_primary {
+    display: flex;
+    padding : 1rem 5rem; 
+    justify-content: center;
+    align-items: center;
+    gap: 0.625rem;
+    border-radius: 100rem;
+    background-color: var(--primaryblue);
+    border: none;
+    color: var(--white);
+    font-size: 1rem;
+    font-weight: 700;
+    cursor: pointer;
+}
+
+#nav {
+    border-right: 1px solid var(--dark7);
+    width: fit-content;
+    height: max-content;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    height: 100vh;
+    padding: 0rem 2rem;
+}
+
+.nav_container {
+    
+    padding: 2rem 0;
+}
+
+.profile_container {
+    padding : 2rem 0;
+}
+
+.profile_content {
+    display: flex;
+}
+
+.information_container h3 {
+    color : var(--black);
+}
+
+.information_container p {
+    color : var(--dark5);
+}
+
+.nav_button {
+    padding: 0.25rem 0;
+    display: flex;
+    align-items: center;
+    justify-content: start;
+    gap: 1rem;
+    padding: 0.5rem 3rem 0.5rem 0.5rem;
+    cursor:  pointer;
+}
+
+li  :hover {
+    background-color: var(--dark7); 
+    border-radius: 0.625rem;
+
+}
+
+#home {
+    color: black;
+}
