@@ -1,10 +1,17 @@
-<?php
-
-require 'protectRoute.php';
+<?php 
 require 'connectionDb.php';
-require 'controllers/dashboardController.php';
+require 'controllers/searchController.php';
 
 ?>
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Search Results</title>
+</head>
+<body>
 
 <!DOCTYPE html>
 <html lang="en">
@@ -50,7 +57,7 @@ require 'controllers/dashboardController.php';
                                     <div>Explore</div>
                                 </div>
                             </a></li>
-                            <li><a href="">
+                        <li><a href="">
                                 <div class="nav_button">
                                     <div>
                                         <svg width="28" height="26" viewBox="0 0 28 26" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -63,7 +70,7 @@ require 'controllers/dashboardController.php';
                                     <div>Notifications</div>
                                 </div>
                             </a></li>
-                            <li><a href="">
+                        <li><a href="">
                                 <div class="nav_button">
                                     <div>
                                         <svg width="28" height="26" viewBox="0 0 28 26" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -134,13 +141,13 @@ require 'controllers/dashboardController.php';
 
             </div>
             <div class="profile_container">
-                <div class="profile_content">
+            <div class="profile_content">
                     <div class="information_container">
                         <h3> <?php echo $_SESSION["user"]["username"] ?></h3>
                         <p><?php echo $_SESSION["user"]["username"] ?></p>
                     </div>
                     <div class="profile_picture">
-                        <a href="controllers/deconnectController.php">
+                        <a href="deconnectController.php">
                             <button class="button_secondary">Deconnect</button>
                         </a>
                 </div>
@@ -149,28 +156,18 @@ require 'controllers/dashboardController.php';
         </section>
         <section id="home">
             <div class="container_home">
-            <div class="make_tweet_container">
-                
-                <form action="controllers/addTweetController.php" method="POST" class="addtweet_container">
-                    <input type="hidden" name="form" value="tweet">
-                    <textarea name="tweetContent" id="addTweet" cols="30" rows="10" placeholder="What's happening?"></textarea>
-                    <button type="submit" class="button_primary">Tweet</button>
-                </form>
-            </div>
-            <div class="tweets">
-                <ul>
-
-                    <?php
-
-                date_default_timezone_set('Europe/Paris');
-                    if (!empty($tweet)) {
-                        foreach ($tweet as $data) {
-
-                            $tweetTime = strtotime($data['created_at']);
-                            
+                <div class="make_tweet_container">
+                   Search Results for "<?php echo ($search) ?>"
+                </div>
+                <div class="tweets">
+                    <?php 
+                    if (empty($tweets)) {
+                        echo '<p>No tweets found for "' . htmlspecialchars($search) . '".</p>';
+                    } else {
+                        foreach ($tweets as $tweet) {
+                            $tweetTime = strtotime($tweet['created_at']);
                             $currentTime = time();
                             $timeDiff = $currentTime - $tweetTime;
-
                             $seconds = $timeDiff;
                             $minutes = floor($seconds / 60);
                             $hours = floor($minutes / 60);
@@ -186,45 +183,35 @@ require 'controllers/dashboardController.php';
                                 $elapsed = 'Just now';
                             }
 
-                            // var_dump($tweetTime, $currentTime, $timeDiff, $seconds, $minutes, $hours, $days, $elapsed);
+                            echo '<div class="tweets">
+                                <ul> 
+                                    <li class="tweet_container">
+                                        <div class="tweet_content">
+                                            <div class="tweet_user_info">
+                                                <p class="user_username">@' . htmlspecialchars($tweet['username']) . '</p>
+                                                <p class="user_name">' . htmlspecialchars($tweet['name']) . '</p> • ' . $elapsed . '
+                                            </div>
+                                            <p>' . htmlspecialchars($tweet['content']) . '</p>';
 
-                
-                            echo '
-                                
-                                <li class="tweet_container">
-                                    <div class="tweet_content">
-                                        <div class="tweet_user_info">
+                            if ($tweet['id_user'] == $_SESSION['user']['id']) {
+                                echo '<form  action="controllers/deleteTweetController.php" method="POST">
+                                        <input type="hidden" name="tweetId" value="' . $tweet['id'] . '">
+                                        <button type="submit" class="button_secondary">Delete</button>
+                                    </form>';
+                            }
 
-                                            <p class="user_username">  @' . $data['username'] . '</p><p class="user_name"> '. $data['name'] . '</p> • ' . $elapsed . '
-
-                                        </div>
-                                        <p>
-                                            
-                                            ' . $data['content'] . '  
-
-                                            </p>';
-                                        
-                                         if ($data['id_user'] == $_SESSION['user']['id']) echo ' 
-                                        <form  action="controllers/deleteTweetController.php" method="POST">
-                                            <input type="hidden" name="tweetId" value="' . $data['id'] . '">
-                                            <button type="submit" class="button_secondary">Delete</button>
-                                        </form>
-                                        ' . '
-                                    </div>
-                                </li>
-                                ';
+                            echo '</div>
+                                    </li>
+                                </ul>
+                            </div>';
                         }
-                    } else {
-                        echo '<li>No tweets found.</li>';
                     }
                     ?>
-                </ul>
-
+                </div>
             </div>
-            </div>
-
         </section>
-        <section id="search">
+
+    <section id="search">
 
             <form action="search.php" method="GET">
                 <input type="hidden" name="form" value="search">
@@ -233,12 +220,5 @@ require 'controllers/dashboardController.php';
             </form>
 
         </section>
-
-    </main>
-
-
-
-
 </body>
-
 </html>

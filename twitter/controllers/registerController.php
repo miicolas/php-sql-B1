@@ -1,10 +1,12 @@
 <?php 
-include 'connectionDb.php';
+include '../connectionDb.php';
 
 if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     if (!empty($_POST['username']) && !empty($_POST['email']) && !empty($_POST['password'])) {
         $username = $_POST['username'];
         $email = $_POST['email'];
+        $password = $_POST['password'];
+        $name = $_POST['name'];
 
         // Check if the user already exists
         $query = $database->prepare("SELECT * FROM user WHERE email = :email OR username = :username");
@@ -24,17 +26,18 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
             $nouvelUser = [
                 'username' => $username,
                 'email' => $email,
-                'password' => $passwordHash
+                'name' => $name,
+                'password' => $passwordHash, 
             ];
 
-            $requete = $database->prepare("INSERT INTO user (username, email, password) VALUES (:username, :email, :password)");
+            $requete = $database->prepare("INSERT INTO user (username, email, name, password) VALUES (:username, :email, :name, :password)");
             if ($requete->execute($nouvelUser)){
                 echo 'User added';
             } else {
                 echo 'Error adding user';
             }
 
-            header('Location: login.php');
+            header('Location: ../login.php');
             exit();
         }
     } else {

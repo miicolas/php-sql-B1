@@ -1,0 +1,49 @@
+@import url(global.css);
+
+main {
+    width: 100vw;
+    height: 100vh;
+    padding: 0 10rem;
+    margin: auto;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+a {
+
+    text-decoration: none;
+    color: var(--white);
+
+}
+
+
+form {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+    padding: 2rem;
+}
+
+input {
+    padding: 1rem;
+    border-radius: 0.5rem;
+    border: 1px solid var(--dark7);
+    font-size: 1rem;
+    font-weight: 700;
+}
+
+button {
+    padding: 1rem;
+    border-radius: 0.5rem;
+    border: none;
+    background-color: var(--primaryblue);
+    color: var(--white);
+    font-size: 1rem;
+    font-weight: 700;
+    cursor: pointer;
+}
+
+
+
