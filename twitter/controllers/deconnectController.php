@@ -1,10 +1,10 @@
 <?php
 
-session_start();
+session_start(); // Démarre la session
+ 
+session_unset(); // Supprime les variables de session
 
-session_unset();
-
-session_destroy();
+session_destroy(); // Détruit la session
 
 
 header('Location: ../login.php');

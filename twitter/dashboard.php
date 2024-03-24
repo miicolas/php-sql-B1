@@ -137,7 +137,7 @@ require 'controllers/dashboardController.php';
                 <div class="profile_content">
                     <div class="information_container">
                         <h3> <?php echo $_SESSION["user"]["username"] ?></h3>
-                        <p><?php echo $_SESSION["user"]["username"] ?></p>
+                        <p><?php echo $_SESSION["user"]["name"] ?></p>
                     </div>
                     <div class="profile_picture">
                         <a href="controllers/deconnectController.php">
@@ -149,80 +149,78 @@ require 'controllers/dashboardController.php';
         </section>
         <section id="home">
             <div class="container_home">
-            <div class="make_tweet_container">
-                
-                <form action="controllers/addTweetController.php" method="POST" class="addtweet_container">
-                    <input type="hidden" name="form" value="tweet">
-                    <textarea name="tweetContent" id="addTweet" cols="30" rows="10" placeholder="What's happening?"></textarea>
-                    <button type="submit" class="button_primary">Tweet</button>
-                </form>
-            </div>
-            <div class="tweets">
-                <ul>
+                <div class="make_tweet_container">
+                    
+                    <form action="controllers/addTweetController.php" method="POST" class="addtweet_container">
+                        <input type="hidden" name="form" value="tweet">
+                        <textarea name="tweetContent" id="addTweet" cols="30" rows="10" placeholder="What's happening?"></textarea>
+                        <button type="submit" class="button_primary">Tweet</button>
+                    </form>
+                </div>
+                <div class="tweets">
+                    <ul>
 
-                    <?php
+                        <?php
 
-                date_default_timezone_set('Europe/Paris');
-                    if (!empty($tweet)) {
-                        foreach ($tweet as $data) {
+                            date_default_timezone_set('Europe/Paris'); // Définit le fuseau horaire par défaut à Paris
+                            if (!empty($tweet)) {
+                                foreach ($tweet as $data) { // Parcours les tweets
 
-                            $tweetTime = strtotime($data['created_at']);
-                            
-                            $currentTime = time();
-                            $timeDiff = $currentTime - $tweetTime;
+                                    $tweetTime = strtotime($data['created_at']); // Convertit la date de création du tweet en timestamp
+                                    
+                                    $currentTime = time(); // Récupère le timestamp actuel
+                                    $timeDiff = $currentTime - $tweetTime; // Calcule la différence de temps entre le tweet et l'heure actuelle
 
-                            $seconds = $timeDiff;
-                            $minutes = floor($seconds / 60);
-                            $hours = floor($minutes / 60);
-                            $days = floor($hours / 24);
+                                    $seconds = $timeDiff; // Initialise les secondes
+                                    $minutes = floor($seconds / 60); // Calcule les minutes
+                                    $hours = floor($minutes / 60); // Calcule les heures
+                                    $days = floor($hours / 24); // Calcule les jours
 
-                            if ($days > 0) {
-                                $elapsed = $days . ' days ago';
-                            } elseif ($hours > 0) {
-                                $elapsed = $hours . ' hours ago';
-                            } elseif ($minutes > 0) {
-                                $elapsed = $minutes . ' minutes ago';
-                            } else {
-                                $elapsed = 'Just now';
-                            }
+                                    if ($days > 0) {
+                                        $elapsed = $days . ' days ago';
+                                    } elseif ($hours > 0) {
+                                        $elapsed = $hours . ' hours ago';
+                                    } elseif ($minutes > 0) {
+                                        $elapsed = $minutes . ' minutes ago';
+                                    } else {
+                                        $elapsed = 'Just now';
+                                    }
 
-                            // var_dump($tweetTime, $currentTime, $timeDiff, $seconds, $minutes, $hours, $days, $elapsed);
+                                    // var_dump($tweetTime, $currentTime, $timeDiff, $seconds, $minutes, $hours, $days, $elapsed);
 
-                
-                            echo '
-                                
-                                <li class="tweet_container">
-                                    <div class="tweet_content">
-                                        <div class="tweet_user_info">
-
-                                            <p class="user_username">  @' . $data['username'] . '</p><p class="user_name"> '. $data['name'] . '</p> • ' . $elapsed . '
-
-                                        </div>
-                                        <p>
-                                            
-                                            ' . $data['content'] . '  
-
-                                            </p>';
+                        
+                                    echo '
                                         
-                                         if ($data['id_user'] == $_SESSION['user']['id']) echo ' 
-                                        <form  action="controllers/deleteTweetController.php" method="POST">
-                                            <input type="hidden" name="tweetId" value="' . $data['id'] . '">
-                                            <button type="submit" class="button_secondary">Delete</button>
-                                        </form>
-                                        ' . '
-                                    </div>
-                                </li>
-                                ';
-                        }
-                    } else {
-                        echo '<li>No tweets found.</li>';
-                    }
-                    ?>
-                </ul>
+                                        <li class="tweet_container">
+                                            <div class="tweet_content">
+                                                <div class="tweet_user_info">
 
-            </div>
-            </div>
+                                                    <p class="user_username">  @' . $data['username'] . '</p><p class="user_name"> '. $data['name'] . '</p> • ' . $elapsed . '
 
+                                                </div>
+                                                <p>
+                                                    
+                                                    ' . $data['content'] . '  
+
+                                                    </p>';
+                                                
+                                                if ($data['id_user'] == $_SESSION['user']['id']) echo ' 
+                                                <form  action="controllers/deleteTweetController.php" method="POST">
+                                                    <input type="hidden" name="tweetId" value="' . $data['id'] . '">
+                                                    <button type="submit" class="button_secondary">Delete</button>
+                                                </form>
+                                                ' . '
+                                            </div>
+                                        </li>
+                                        ';
+                                }
+                            } else {
+                            echo '<li>No tweets found.</li>';
+                            }
+                        ?>
+                    </ul>
+                </div>
+            </div>
         </section>
         <section id="search">
 
@@ -235,9 +233,6 @@ require 'controllers/dashboardController.php';
         </section>
 
     </main>
-
-
-
 
 </body>
 

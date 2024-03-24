@@ -13,7 +13,7 @@
 
 <h1>Login</h1>
 
-    <form action="controllers/loginController.php" method="POST">
+    <form action="controllers/loginController.php" method="POST"> 
         <input type="hidden" name="form" value="login">
         <input type="text" name="username" id="username" placeholder="Username" required>
         <input type="password" name="password" id="password" placeholder="Password" required>

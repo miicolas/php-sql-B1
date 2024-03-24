@@ -143,8 +143,8 @@ require 'controllers/searchController.php';
             <div class="profile_container">
             <div class="profile_content">
                     <div class="information_container">
-                        <h3> <?php echo $_SESSION["user"]["username"] ?></h3>
-                        <p><?php echo $_SESSION["user"]["username"] ?></p>
+                        <h3> <?php echo $_SESSION["user"]["username"] ?></h3> <!-- Affiche le nom d'utilisateur -->
+                         <p><?php echo $_SESSION["user"]["name"] ?></p> <!-- Affiche le nom d'utilisateur -->
                     </div>
                     <div class="profile_picture">
                         <a href="deconnectController.php">
@@ -161,17 +161,17 @@ require 'controllers/searchController.php';
                 </div>
                 <div class="tweets">
                     <?php 
-                    if (empty($tweets)) {
-                        echo '<p>No tweets found for "' . htmlspecialchars($search) . '".</p>';
+                    if (empty($tweets)) { // Vérifie si aucun tweet n'a été trouvé
+                        echo '<p>No tweets found for "' . $search . '".</p>'; 
                     } else {
-                        foreach ($tweets as $tweet) {
-                            $tweetTime = strtotime($tweet['created_at']);
-                            $currentTime = time();
-                            $timeDiff = $currentTime - $tweetTime;
-                            $seconds = $timeDiff;
-                            $minutes = floor($seconds / 60);
-                            $hours = floor($minutes / 60);
-                            $days = floor($hours / 24);
+                        foreach ($tweets as $tweet) { // Affiche les tweets
+                            $tweetTime = strtotime($tweet['created_at']); // Convertit la date de création du tweet en timestamp
+                            $currentTime = time(); // Récupère l'heure actuelle en timestamp
+                            $timeDiff = $currentTime - $tweetTime; // Calcule la différence de temps entre l'heure actuelle et l'heure de création du tweet
+                            $seconds = $timeDiff; // Convertit la différence de temps en secondes
+                            $minutes = floor($seconds / 60); // Convertit la différence de temps en minutes
+                            $hours = floor($minutes / 60);  // Convertit la différence de temps en heures
+                            $days = floor($hours / 24); // Convertit la différence de temps en jours
 
                             if ($days > 0) {
                                 $elapsed = $days . ' days ago';
@@ -188,12 +188,12 @@ require 'controllers/searchController.php';
                                     <li class="tweet_container">
                                         <div class="tweet_content">
                                             <div class="tweet_user_info">
-                                                <p class="user_username">@' . htmlspecialchars($tweet['username']) . '</p>
-                                                <p class="user_name">' . htmlspecialchars($tweet['name']) . '</p> • ' . $elapsed . '
+                                                <p class="user_username">@' . $tweet['username'] . '</p>
+                                                <p class="user_name">' . $tweet['name'] . '</p> • ' . $elapsed . '
                                             </div>
-                                            <p>' . htmlspecialchars($tweet['content']) . '</p>';
+                                            <p>' . $tweet['content'] . '</p>';
 
-                            if ($tweet['id_user'] == $_SESSION['user']['id']) {
+                            if ($tweet['id_user'] == $_SESSION['user']['id']) { // Vérifie si l'utilisateur connecté est l'auteur du tweet
                                 echo '<form  action="controllers/deleteTweetController.php" method="POST">
                                         <input type="hidden" name="tweetId" value="' . $tweet['id'] . '">
                                         <button type="submit" class="button_secondary">Delete</button>
